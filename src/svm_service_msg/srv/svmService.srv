@@ -1,0 +1,6 @@
+#Sevice Definition for the SVM Classifier Service
+
+caffe_msg_tagger/PredictionData descriptor  #predictions
+---
+caffe_msg_tagger/PredictionData predictions  #predictions
+

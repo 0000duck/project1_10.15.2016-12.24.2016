@@ -1,0 +1,11 @@
+
+**********Lanzar livetagger con bag file como argumento en el launch
+
+roslaunch caffe_live_tagger tagger.bag.launch bag_path:=/home/jcarlos2289/bagfiles/caffe_lv_1.bag
+
+**********Capturar un rosbag file solo con el camera/rgb/image_raw
+
+rosbag record -o /home/jcarlos2289/bagfiles/roselthor /camera/rgb/image_raw
+
+
+roslaunch caffe_live_tagger tagger.bag.launch bag_path:=/home/jcarlos2289/bagfiles/roselthor.bag

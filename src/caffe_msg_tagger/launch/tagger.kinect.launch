@@ -1,0 +1,22 @@
+<launch>
+
+ <arg name ="caffe_topic" default="/caffe_ret"/>
+ <arg name="caffe_path" default="/home/ed/caffe" />  
+
+  <!-- openni kinect -->
+  <include file="$(find openni_launch)/launch/openni.launch" />
+
+  <!-- classify server -->
+  <node pkg="caffe_msg_tagger" type="classify_server_msg" name="classify_server" output="screen" args="$(arg caffe_path)" />
+
+  <!-- image_client -->
+  <node pkg="caffe_msg_tagger" type="image_client_msg" name="image_client" output="screen"/>
+
+  <!-- image view     /camera/rgb/image_rect_color  -->
+  <node pkg="image_view" type="image_view" name="image_view" output="screen" >
+      <remap from="image" to="/camera/rgb/image_raw" />  
+      <param name="autosize" value="true"/>
+  </node>
+ 
+</launch>
+

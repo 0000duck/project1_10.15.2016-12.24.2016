@@ -1,0 +1,8 @@
+#Sevice Definition for the Classifier Service
+
+int32 n                  # Number of predictions to return
+sensor_msgs/Image image # Image to Classify 
+---
+caffe_msg_tagger/PredictionData predictions  #predictions
+string maxTag            # a string with the higher confidence for the image
+

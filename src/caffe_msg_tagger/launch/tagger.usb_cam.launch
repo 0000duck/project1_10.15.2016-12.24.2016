@@ -1,0 +1,31 @@
+<launch>
+
+ <arg name ="caffe_topic" default="/caffe_ret"/>
+ <arg name="caffe_path" default="/home/ed/caffe" />  
+
+  <!-- usb cam -->
+  <node name="usb_cam" pkg="usb_cam" type="usb_cam_node" output="screen" >
+    <param name="video_device" value="/dev/video0" />
+    <param name="image_width" value="640" />
+    <param name="image_height" value="480" />
+    <param name="pixel_format" value="yuyv" />
+    <param name="camera_frame_id" value="usb_cam" />
+    <param name="io_method" value="mmap"/>
+    <remap from="/usb_cam/image_raw" to="/camera/rgb/image_raw" />  
+  </node>
+ 
+  <!-- classify server -->
+  <node pkg="caffe_msg_tagger" type="classify_server_msg" name="classify_server" output="screen" args="$(arg caffe_path)" />
+
+  <!-- image_client -->
+  <node pkg="caffe_msg_tagger" type="image_client_msg" name="image_client" output="screen"/>
+
+  <!-- image view     /camera/rgb/image_rect_color  -->
+  <node pkg="image_view" type="image_view" name="image_view" output="screen" >
+      <remap from="image" to="/camera/rgb/image_raw" />  
+      <param name="autosize" value="true"/>
+  </node>
+  
+
+</launch>
+

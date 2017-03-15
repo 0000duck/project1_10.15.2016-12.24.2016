@@ -1,0 +1,26 @@
+<launch>
+
+  <arg name ="caffe_topic" default="/caffe_ret"/>
+  <arg name="caffe_path" default="/home/ed/caffe" /> 
+
+  <!-- declare arg to be passed in -->
+  <arg name="bag_path" default="/home/ed/bagfiles/caffe_lv_2.bag" doc="Paht to the RosBag File" /> 
+
+  <!-- RosBag Excecution   -->
+  <node pkg="rosbag" type="play" name="player" args="--clock $(arg bag_path)"/>
+
+  <!-- classify server -->
+  <node pkg="caffe_live_tagger" type="classify_server" name="classify_server" output="screen"  args="$(arg caffe_path)"/>
+
+  <!-- image_client -->
+  <node pkg="caffe_live_tagger" type="image_client" name="image_client" output="screen"/>
+
+  <!-- image view     /camera/rgb/image_rect_color  -->
+  <node pkg="image_view" type="image_view" name="image_view" output="screen" >
+      <remap from="image" to="/camera/rgb/image_raw" />  
+      <param name="autosize" value="true"/>
+  </node>
+  
+
+</launch>
+
